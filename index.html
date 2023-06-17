@@ -70,53 +70,8 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <!-- Socket.io CDN -->
     <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
-
-    <script>
-      $(document).ready( _ =>{
-        console.log("Döküman Hazır!");
-        let tableBody = document.querySelector('#table-body')
-
-        // Socket.io Tanımlaması
-        const socket = io("http://localhost:8081", {
-          transports: ["websocket", "polling", "flashsocket"],
-          path: "/ws/socket.io",
-        });
-
-
-        // **Dinleyiciler**
-        
-        // Table Data Gelen Veri
-        socket.on('tableDatas', (tableData) => {
-          let tableLenght = tableData['Çalışan'].length;
-
-          // Create Çalışanlar Row
-          for (let i = 0; i < tableLenght; i++) {
-            let employeeData = tableData['Çalışan'][i];
-            let departmentData = tableData['Departman'][i];
-            let ageData = tableData['Yaş'][i];
-            let cityData = tableData['Semt'][i];
-            let salaryData = tableData['Maaş'][i];
-            
-            let tr = document.createElement('tr');
-            tr.innerHTML = `<td> ${employeeData} </td>`;
-            tr.innerHTML += `<td> ${departmentData} </td>`;
-            tr.innerHTML += `<td> ${ageData} </td>`;
-            tr.innerHTML += `<td> ${cityData} </td>`;
-            tr.innerHTML += `<td> ${salaryData} </td>`;
-            
-            tableBody.append(tr);            
-          }
-        })
-
-
-        // **Göndericiler**
-
-        // Table Load Butonu Dinlendi, tableload dinleyicisine mesaj gönderildi
-        $('#table-load').on('click', () => {
-          socket.emit('tableLoad');
-        });
-
-      })
-    </script>
+    
+    <!-- Index Script File -->
+    <script src="./scripts/indexScript.js"></script>
   </body>
 </html>
