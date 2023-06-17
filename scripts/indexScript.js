@@ -11,7 +11,7 @@ $(document).ready( _ =>{
 
     // **Dinleyiciler**
 
-    // Table Data Gelen Veri
+    // Table Data Gelen Veri ve Verinin Kullanılması
     socket.on('tableDatas', (tableData) => {
         let tableLenght = tableData['Çalışan'].length;
 
@@ -32,6 +32,9 @@ $(document).ready( _ =>{
         
         tableBody.append(tr);            
         }
+
+        appendAlert('Tablo başarıyla yüklendi!', 'success'); //notify the user of successful feedback
+        
     })
 
 
@@ -40,6 +43,29 @@ $(document).ready( _ =>{
     // Table Load Butonu Dinlendi, tableload dinleyicisine mesaj gönderildi
     $('#table-load').on('click', () => {
         socket.emit('tableLoad');
+
+        $('#table-load').attr('disabled', '');
     });
 
 })
+
+
+// Show Alert Function with BS
+const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+function appendAlert(message, type){
+
+    const wrapper = document.createElement('div')
+    wrapper.style.transition = "all .5s";
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('')
+
+    alertPlaceholder.append(wrapper)
+
+    setTimeout(() => {
+        wrapper.remove();
+    }, 5000);
+}
