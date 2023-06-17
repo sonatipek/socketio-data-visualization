@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
+      <div class="container">
+        <a class="navbar-brand" href="./index.html">FastAPI & Socket.io</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarsExample07">
+          <ul class="navbar-nav ms-5 mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./index.html">Ana Sayfa</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+    
+
+    <div class="container mt-5">
+      <h1>Çalışanlar Tablosu</h1>
+      <h5 id="result"></h5>
+  
+      <!-- Table -->
+      <table class="table table-hover mt-3">
+        <thead>
+          <tr>
+            <th scope="col">Çalışan</th>
+            <th scope="col">Departman</th>
+            <th scope="col">Yaş</th>
+            <th scope="col">Semt</th>
+            <th scope="col">Maaş</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Table Row Template -->
+          <!-- <tr>
+            <td>0</td>
+            <td>Lorem</td>
+            <td>İpsum</td>
+            <td>Sit</td>
+            <td>0</td>
+          </tr> -->
+
+        </tbody>
+      </table>
+
+      <button id="table-load" class="btn btn-outline-danger">Tabloyu Yükle</button>
+    </div>
+
+    
+
+    <!-- Bootstrap.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <!-- Socket.io CDN -->
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+
+    <script>
+      $(document).ready( _ =>{
+        console.log("Döküman Hazır!");
+        let tableBody = document.querySelector('#table-body')
+
+        // Socket.io Tanımlaması
+        const socket = io("http://localhost:8081", {
+          transports: ["websocket", "polling", "flashsocket"],
+          path: "/ws/socket.io",
+        });
+
+
+        // **Dinleyiciler**
+        
+        // Table Data Gelen Veri
+        socket.on('tableDatas', (tableData) => {
+          let tableLenght = tableData['Çalışan'].length;
+
+          // Create Çalışanlar Row
+          for (let i = 0; i < tableLenght; i++) {
+            let employeeData = tableData['Çalışan'][i];
+            let departmentData = tableData['Departman'][i];
+            let ageData = tableData['Yaş'][i];
+            let cityData = tableData['Semt'][i];
+            let salaryData = tableData['Maaş'][i];
+            
+            let tr = document.createElement('tr');
+            tr.innerHTML = `<td> ${employeeData} </td>`;
+            tr.innerHTML += `<td> ${departmentData} </td>`;
+            tr.innerHTML += `<td> ${ageData} </td>`;
+            tr.innerHTML += `<td> ${cityData} </td>`;
+            tr.innerHTML += `<td> ${salaryData} </td>`;
+            
+            tableBody.append(tr);            
+          }
+        })
+
+
+        // **Göndericiler**
+
+        // Table Load Butonu Dinlendi, tableload dinleyicisine mesaj gönderildi
+        $('#table-load').on('click', () => {
+          socket.emit('tableLoad');
+        });
+
+      })
+    </script>
+  </body>
+</html>
