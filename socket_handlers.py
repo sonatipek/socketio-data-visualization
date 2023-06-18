@@ -57,15 +57,34 @@ result7 = dataSeries.groupby('Semt').get_group('Kadıköy')['Çalışan'].count(
 @app.sio.on('loadPageData')
 async def pandas_read(sid, *args, **kwargs):
     numberOfEmployees = dataSeries.groupby('Departman')['Çalışan'].count() #Departmana göre çalışan sayısı
+    await sio.emit('numberofEmployees', numberOfEmployees.to_json())
 
-    await sio.emit('filterData', numberOfEmployees.to_json())
 
+@app.sio.on('accDetail')
+async def accDetail(sid, *args, **kwargs):
+    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Muhasebe')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
+    clickCounter = args[0]
+    
+    if(clickCounter <= 1):
+        await sio.emit('accDetailData', employeeDeatilsOfAcc.to_json())
+    
+@app.sio.on('hrDetail')
+async def hrDetail(sid, *args, **kwargs):
+    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('İnsanKaynakları')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
+    clickCounter = args[0]
+    
+    if(clickCounter <= 1):
+        await sio.emit('hrDetailData', employeeDeatilsOfAcc.to_json())
+    
+@app.sio.on('itDetail')
+async def itDetail(sid, *args, **kwargs):
+    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Bilgiİşlem')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
+    clickCounter = args[0]
+    
+    if(clickCounter <= 1):
+        await sio.emit('itDetailData', employeeDeatilsOfAcc.to_json())
+    
 
-@app.sio.on('accDeatil')
-async def pandas_read(sid, *args, **kwargs):
-    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Muhasebe')
-
-    await sio.emit('accDetilData', employeeDeatilsOfAcc.to_json())
 
 
 if __name__ == '__main__':

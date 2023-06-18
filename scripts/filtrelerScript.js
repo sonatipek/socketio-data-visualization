@@ -10,8 +10,8 @@ $(document).ready( _ =>{
 
     // **Dinleyiciler**
 
-    // .....
-    socket.on('filterData', (data) => {
+    // Socket.io üzerinden gelen departman bazında çalışanların sayısı verilerinin alınması ve bu numaraların DOM üzerinde yerleştirilmesi
+    socket.on('numberofEmployees', (data) => {
         let numberOfEmployees = JSON.parse(data);
         
         $('#acc-number').text(numberOfEmployees.Muhasebe);
@@ -20,34 +20,63 @@ $(document).ready( _ =>{
         
     })
 
-    socket.on('accDetilData', data => {
-        let employeeDeatilsOfAcc = JSON.parse(data);
+    // Socket.io üzerinden gelen verilerin alınması ve detayları gör dropdownu içinde tablolaştırılması | Muhasebe Departmanı
+    socket.on('accDetailData', data => {
+        createTableByDepartment(data, "#acc-dropdown");
+    });
 
+    // Socket.io üzerinden gelen verilerin alınması ve detayları gör dropdownu içinde tablolaştırılması | Bilgi İşlem Departmanı
+    socket.on('itDetailData', data => {
+        createTableByDepartment(data, "#it-dropdown"); 
+    });
 
-        for (const key in employeeDeatilsOfAcc) {
-            // if (Object.hasOwnProperty.call(object, key)) {
-            //     const element = object[key];
-                
-            // }
-            for (var key2 in employeeDeatilsOfAcc[key]) {
-                let data = employeeDeatilsOfAcc[key];
-                var test = document.createElement('li');
-                test.className = "dropdown-item";
-
-                test.innerHTML += data[key2];
-                
-            }
-            $('#acc-dropdown').html(test)
-        }
-    })
+    // Socket.io üzerinden gelen verilerin alınması ve detayları gör dropdownu içinde tablolaştırılması | İnsan Kaynakları Departmanı
+    socket.on('hrDetailData', (data) => {
+        createTableByDepartment(data, "#hr-dropdown");
+    });
 
 
     // **Göndericiler**
-    // ....
+    // Sayfa yüklendiğinde 'loadPageData' mesajının gönderilmesi
     socket.emit('loadPageData');
+    
+    // Muhasebe detay dropdown butonuna tıklandığında 'accDeatil' mesajının gönderilmesi
+    // Beraberinde giden click counter ile verilerin tekrar tekrar yüklenmesini engelliyoruz
+    let accClickCounter = 0;
+    $('#acc-detail').on('click', _ => socket.emit('accDetail', accClickCounter += 1));
+    
+    
+    // İnsan Kaynakları detay dropdown butonuna tıklandığında 'accDeatil' mesajının gönderilmesi
+    // Beraberinde giden click counter ile verilerin tekrar tekrar yüklenmesini engelliyoruz
+    let hrClickCounter = 0;
+    $('#hr-detail').on('click', _ => socket.emit('hrDetail', hrClickCounter += 1));
 
-    $('#acc-deatil').on('click', _ => socket.emit('accDeatil'))
+    // Bilgi İşlem detay dropdown butonuna tıklandığında 'accDeatil' mesajının gönderilmesi
+    // Beraberinde giden click counter ile verilerin tekrar tekrar yüklenmesini engelliyoruz
+    let itClickCounter = 0;
+    $('#it-detail').on('click', _ => socket.emit('itDetail', itClickCounter += 1));
     
     
 
 })
+
+
+// Dropdown Verilerini Oluşturan Fonksiyon
+function createTableByDepartment(data, selector) {
+    let employeeDeatilsOfAcc = JSON.parse(data);        
+    let rowKeys = Object.keys(employeeDeatilsOfAcc['Çalışan']); 
+    let allKeys = Object.keys(employeeDeatilsOfAcc); 
+
+    // filtrelenen satırların uzunluğu kadar 'tr' oluşturan, içerideki döngü ile bu oluşturulan tr'nin içerisine satırların verilerini ekleyip, içerideki döngünün çıkışında bu oluşturulan tr'yi dropdown içerisine ekleyen döngü
+    for(let i = 0; i < rowKeys.length; i++) {
+        let tr = document.createElement('tr');
+        
+        for (let j = 0; j < allKeys.length; j++) {
+            let firsData = employeeDeatilsOfAcc[allKeys[j]];
+            
+            tr.innerHTML += `<td> ${firsData[rowKeys[i]]} </td>`;
+        }
+        
+        $(selector).append(tr);
+    }   
+}
