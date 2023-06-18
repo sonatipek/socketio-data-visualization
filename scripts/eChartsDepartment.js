@@ -127,7 +127,7 @@ $(document).ready(_ => {
 
 
     // **Göndericiler**
-    // Sayfa yüklendiğinde 'loadPageData' mesajının gönderilmesi
+    // Sayfa yüklendiğinde 'loadEChart' mesajının gönderilmesi
     socket.emit('loadEChart');
 
 
