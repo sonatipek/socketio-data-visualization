@@ -14,9 +14,9 @@ $(document).ready( _ =>{
     socket.on('numberofEmployees', (data) => {
         let numberOfEmployees = JSON.parse(data);
         
-        $('#acc-number').text(numberOfEmployees.Muhasebe);
-        $('#it-number').text(numberOfEmployees.Bilgiİşlem);
-        $('#hr-number').text(numberOfEmployees.İnsanKaynakları);
+        $('#acc-number').text(numberOfEmployees['Muhasebe']);
+        $('#it-number').text(numberOfEmployees['Bilgi İşlem']);
+        $('#hr-number').text(numberOfEmployees['İnsan Kaynakları']);
         
     })
 
