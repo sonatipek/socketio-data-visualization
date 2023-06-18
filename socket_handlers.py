@@ -120,6 +120,16 @@ async def kadıkoyDetail(sid, *args, **kwargs):
     if(clickCounter <= 1):
         await sio.emit('tuzlaData', employeeDeatilsOfAcc.to_json())
 
+@app.sio.on('loadCitiesChart')
+async def loadCitiesChart(sid, *args, **kwargs):
+    numberOfEmployees = dataSeries.groupby('Semt')['Çalışan'].count() #Semte göre çalışan sayısı
+    avgAgeByDepartment = dataSeries.groupby('Semt')['Yaş'].mean() # Semte göre yaş ortalaması
+    avgSalaryByDepartment = dataSeries.groupby('Semt')['Maaş'].mean() # Semte göre yaş ortalaması
+    totalSalaryExpandByDepertment = dataSeries.groupby('Semt')['Maaş'].sum() # Semtlerdeki toplam maaş harcaması
+    allDatas = pd.Series(data=[numberOfEmployees, avgAgeByDepartment, avgSalaryByDepartment, totalSalaryExpandByDepertment], index=['Çalışan Sayısı', 'Yaş Ortalaması', 'Maaş Ortalaması', 'Toplam Maaş Harcaması'])
+
+    await sio.emit('citiesChartData', allDatas.to_json())
+
 
 
 if __name__ == '__main__':

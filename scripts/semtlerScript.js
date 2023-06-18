@@ -1,5 +1,5 @@
 $(document).ready(_ => {
-    console.log("eCharts Verileri Yüklendi");
+    console.log("Semtler Sayfası Hazır");
 
     // Socket.io Tanımlaması
     const socket = io("http://localhost:8081", {
@@ -42,9 +42,6 @@ $(document).ready(_ => {
 
 
     // **Göndericiler**
-    // Sayfa yüklendiğinde 'loadChartSemtler' mesajının gönderilmesi
-    socket.emit('loadChartSemtler');
-
     // Sayfa yüklendiğinde 'loadNumberOfEmployeesByCities' mesajının gönderilmesi
     socket.emit('loadPageForEmployeCount');
 
