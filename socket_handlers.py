@@ -20,7 +20,7 @@ sio = SocketManager(app=app)
 
 data = {
     'Çalışan': ['Ahmet Yılmaz','Can Ertürk','Hasan Korkmaz','Cenk Saymaz','Ali Turan','Rıza Ertürk','Mustafa Can'],
-    'Departman': ['İnsanKaynakları','Bilgiİşlem','Muhasebe','İnsanKaynakları','Bilgiİşlem','Muhasebe','Bilgiİşlem'],
+    'Departman': ['İnsan Kaynakları','Bilgi İşlem','Muhasebe','İnsan Kaynakları','Bilgi İşlem','Muhasebe','Bilgi İşlem'],
     'Yaş': [30,25,45,50,23,34,42],
     'Semt': ['Kadıköy','Tuzla','Maltepe','Tuzla','Kadıköy','Tuzla','Maltepe'],
     'Maaş': [5000,3000,4000,3500,2750,6500,4500]
@@ -45,15 +45,6 @@ async def tableLoad(sid, *args, **kwargs):
 
 
 
-result = dataSeries.groupby('Semt').get_group('Kadıköy')['Çalışan'] # Semtlerden Kadıköyde oturan çalışanların adları.
-result1 = dataSeries.groupby('Departman').get_group('Bilgiİşlem') # Departmanlardan 'Bilgi İşlem' bilgilerini getirir.
-# result2 = dataSeries.groupby('Departman').sum() # Departmandaki sayısal değerleri toplar.
-result3 = dataSeries.groupby('Departman')['Yaş'].mean() # Departmana göre yaş şeysi
-result4 = dataSeries.groupby('Departman').min()[['Maaş','Yaş']] # departmana göre en düşük maaş ve yaş bilgilerini al
-result5 = dataSeries.groupby('Semt')['Yaş'].mean() # semt bazında yaş ortalaması
-result6 = dataSeries.groupby('Semt')['Çalışan'].count() # Semtlere göre çalışan sayılarını gösterir.
-result7 = dataSeries.groupby('Semt').get_group('Kadıköy')['Çalışan'].count() # Semtlerden, Kadıköy'de çalışan sayısını gösterir.
-
 @app.sio.on('loadPageData')
 async def pandas_read(sid, *args, **kwargs):
     numberOfEmployees = dataSeries.groupby('Departman')['Çalışan'].count() #Departmana göre çalışan sayısı
@@ -70,7 +61,7 @@ async def accDetail(sid, *args, **kwargs):
     
 @app.sio.on('hrDetail')
 async def hrDetail(sid, *args, **kwargs):
-    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('İnsanKaynakları')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
+    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('İnsan Kaynakları')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
     clickCounter = args[0]
     
     if(clickCounter <= 1):
@@ -78,12 +69,23 @@ async def hrDetail(sid, *args, **kwargs):
     
 @app.sio.on('itDetail')
 async def itDetail(sid, *args, **kwargs):
-    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Bilgiİşlem')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
+    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Bilgi İşlem')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
     clickCounter = args[0]
     
     if(clickCounter <= 1):
         await sio.emit('itDetailData', employeeDeatilsOfAcc.to_json())
     
+
+
+@app.sio.on('loadEChart')
+async def loadEChart(sid, *args, **kwargs):
+    numberOfEmployees = dataSeries.groupby('Departman')['Çalışan'].count() #Departmana göre çalışan sayısı
+    avgAgeByDepartment = dataSeries.groupby('Departman')['Yaş'].mean() # departmana göre yaş ortalaması
+    avgSalaryByDepartment = dataSeries.groupby('Departman')['Maaş'].mean() # departmana göre yaş ortalaması
+    totalSalaryExpandByDepertment = dataSeries.groupby('Departman')['Maaş'].sum() # Departmandaki toplam maaş harcaması
+    allDatas = pd.Series(data=[numberOfEmployees, avgAgeByDepartment, avgSalaryByDepartment, totalSalaryExpandByDepertment], index=['Çalışan Sayısı', 'Yaş Ortalaması', 'Maaş Ortalaması', 'Toplam Maaş Harcaması'])
+
+    await sio.emit('eChartData', allDatas.to_json())
 
 
 
