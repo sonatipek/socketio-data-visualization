@@ -53,7 +53,7 @@ async def pandas_read(sid, *args, **kwargs):
 
 @app.sio.on('accDetail')
 async def accDetail(sid, *args, **kwargs):
-    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Muhasebe')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
+    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Muhasebe')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre calisan, maas, yas ve semt bilgileri
     clickCounter = args[0]
     
     if(clickCounter <= 1):
@@ -61,7 +61,7 @@ async def accDetail(sid, *args, **kwargs):
     
 @app.sio.on('hrDetail')
 async def hrDetail(sid, *args, **kwargs):
-    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('İnsan Kaynakları')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
+    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('İnsan Kaynakları')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #İnsan Kaynakları departmanına göre calisan, maas, yas ve semt bilgileri
     clickCounter = args[0]
     
     if(clickCounter <= 1):
@@ -69,7 +69,7 @@ async def hrDetail(sid, *args, **kwargs):
     
 @app.sio.on('itDetail')
 async def itDetail(sid, *args, **kwargs):
-    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Bilgi İşlem')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Muhasebe departmanına göre tüm veriler
+    employeeDeatilsOfAcc = dataSeries.groupby('Departman').get_group('Bilgi İşlem')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Bilgi İşlem departmanına göre calisan, maas, yas ve semt bilgileri
     clickCounter = args[0]
     
     if(clickCounter <= 1):
@@ -86,6 +86,49 @@ async def loadEChart(sid, *args, **kwargs):
     allDatas = pd.Series(data=[numberOfEmployees, avgAgeByDepartment, avgSalaryByDepartment, totalSalaryExpandByDepertment], index=['Çalışan Sayısı', 'Yaş Ortalaması', 'Maaş Ortalaması', 'Toplam Maaş Harcaması'])
 
     await sio.emit('eChartData', allDatas.to_json())
+
+
+@app.sio.on('loadPageForEmployeCount')
+async def loadPageForEmployeCount(sid, *args, **kwargs):
+    numberOfEmployees = dataSeries.groupby('Semt')['Çalışan'].count() #Semte göre çalışan sayısı
+    await sio.emit('numberofEmployeesByCities', numberOfEmployees.to_json())
+
+
+@app.sio.on('kadikoyDetail')
+async def kadıkoyDetail(sid, *args, **kwargs):
+    employeeDeatilsOfAcc = dataSeries.groupby('Semt').get_group('Kadıköy')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Kadıköy semtine göre calisan, maas, yas ve semt bilgileri
+    clickCounter = args[0]
+
+    if(clickCounter <= 1):
+        await sio.emit('kadikoyData', employeeDeatilsOfAcc.to_json())
+
+
+@app.sio.on('maltepeDetail')
+async def kadıkoyDetail(sid, *args, **kwargs):
+    employeeDeatilsOfAcc = dataSeries.groupby('Semt').get_group('Maltepe')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Kadıköy semtine göre calisan, maas, yas ve semt bilgileri
+    clickCounter = args[0]
+        
+    if(clickCounter <= 1):
+        await sio.emit('maltepeData', employeeDeatilsOfAcc.to_json())
+
+
+@app.sio.on('tuzlaDetail')
+async def kadıkoyDetail(sid, *args, **kwargs):
+    employeeDeatilsOfAcc = dataSeries.groupby('Semt').get_group('Tuzla')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Kadıköy semtine göre calisan, maas, yas ve semt bilgileri
+    clickCounter = args[0]
+    
+    if(clickCounter <= 1):
+        await sio.emit('tuzlaData', employeeDeatilsOfAcc.to_json())
+
+@app.sio.on('loadCitiesChart')
+async def loadCitiesChart(sid, *args, **kwargs):
+    numberOfEmployees = dataSeries.groupby('Semt')['Çalışan'].count() #Semte göre çalışan sayısı
+    avgAgeByDepartment = dataSeries.groupby('Semt')['Yaş'].mean() # Semte göre yaş ortalaması
+    avgSalaryByDepartment = dataSeries.groupby('Semt')['Maaş'].mean() # Semte göre yaş ortalaması
+    totalSalaryExpandByDepertment = dataSeries.groupby('Semt')['Maaş'].sum() # Semtlerdeki toplam maaş harcaması
+    allDatas = pd.Series(data=[numberOfEmployees, avgAgeByDepartment, avgSalaryByDepartment, totalSalaryExpandByDepertment], index=['Çalışan Sayısı', 'Yaş Ortalaması', 'Maaş Ortalaması', 'Toplam Maaş Harcaması'])
+
+    await sio.emit('citiesChartData', allDatas.to_json())
 
 
 
