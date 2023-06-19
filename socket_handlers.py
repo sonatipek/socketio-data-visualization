@@ -123,11 +123,13 @@ async def tuzlaDetail(sid, *args, **kwargs):
 @app.sio.on('loadCitiesChart')
 async def loadCitiesChart(sid, *args, **kwargs):
     numberOfEmployees = dataSeries.groupby('Semt')['Çalışan'].count() #Semte göre çalışan sayısı
-    avgAgeByDepartment = dataSeries.groupby('Semt')['Yaş'].mean() # Semte göre yaş ortalaması
-    avgSalaryByDepartment = dataSeries.groupby('Semt')['Maaş'].mean() # Semte göre yaş ortalaması
-    totalSalaryExpandByDepertment = dataSeries.groupby('Semt')['Maaş'].sum() # Semtlerdeki toplam maaş harcaması
-    allDatas = pd.Series(data=[numberOfEmployees, avgAgeByDepartment, avgSalaryByDepartment, totalSalaryExpandByDepertment], index=['Çalışan Sayısı', 'Yaş Ortalaması', 'Maaş Ortalaması', 'Toplam Maaş Harcaması'])
-
+    avgAgeByCities = dataSeries.groupby('Semt')['Yaş'].mean() # Semte göre yaş ortalaması
+    avgSalaryByCities = dataSeries.groupby('Semt')['Maaş'].mean() # Semte göre yaş ortalaması
+    allAgesByCities = dataSeries.groupby('Semt')['Yaş'].apply(list) # Semtlere göre tüm yaşlar
+    totalSalaryExpandByCities = dataSeries.groupby('Semt')['Maaş'].sum() # Semtlerdeki toplam maaş harcaması
+    allDatas = pd.Series(data=[numberOfEmployees, avgAgeByCities, avgSalaryByCities, totalSalaryExpandByCities, allAgesByCities ], index=['Çalışan Sayısı', 'Yaş Ortalaması', 'Maaş Ortalaması', 'Toplam Maaş Harcaması', 'Semtlere Göre Tüm Yaşlar'])
+    
+    
     await sio.emit('citiesChartData', allDatas.to_json())
 
 

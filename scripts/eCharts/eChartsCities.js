@@ -19,13 +19,15 @@ $(document).ready(_ => {
         let mainChart = echarts.init(document.getElementById('eChart-main'));
         let secondChart = echarts.init(document.getElementById('eChart-second'));
         let thirdChart = echarts.init(document.getElementById('eChart-third'));
+        let fourthChart = echarts.init(document.getElementById('eChart-fourth'));
         
         // Data Spesifications
         let numberOfEmployees = data['Çalışan Sayısı'];
         let avgAgeByCity = data['Yaş Ortalaması'];
         let avgSalaryByCity = data['Maaş Ortalaması'];
         let totalSalaryExpandByCity = data['Toplam Maaş Harcaması'];
-
+        let allAgesByCities = data['Semtlere Göre Tüm Yaşlar'];
+        
         
         // Main Chart Option
         let mainOption = {
@@ -116,10 +118,47 @@ $(document).ready(_ => {
                 }
             }
         };
+
+        
+
+        // Fourtg Chart Options
+        let fourthOption = {
+            title: {
+                text: 'Semtlerdeki Yaş Dağılımı',
+                subtext: 'Her çizgi bir semti temsil eder. Tablo semtlerdeki yaş dağılımını gösterir.',
+                left: 'center'
+            },
+            tooltip: {},
+            xAxis: {
+              type: 'category',
+              data: Object.keys(allAgesByCities),
+            },
+            yAxis: {
+              type: 'value',
+              name: 'Yaş',
+            },
+            series:Object.values(allAgesByCities).map(function(item) {
+                return {
+                  name: Object.keys(allAgesByCities),
+                  type: 'line',
+                  data: item
+                };
+            }),
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0,0,0, 0.5)'
+                }
+            }
+          };
+          
+           
         
         mainChart.setOption(mainOption);
         secondChart.setOption(secondOption);
         thirdChart.setOption(thirdOption);
+        fourthChart.setOption(fourthOption);
 
     });
 
