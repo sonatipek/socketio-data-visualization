@@ -13,25 +13,7 @@ $(document).ready( _ =>{
 
     // Table Data Gelen Veri ve Verinin Kullanılması
     socket.on('tableDatas', (tableData) => {
-        let tableLenght = tableData['Çalışan'].length;
-
-        // Create Çalışanlar Row
-        for (let i = 0; i < tableLenght; i++) {
-        let employeeData = tableData['Çalışan'][i];
-        let departmentData = tableData['Departman'][i];
-        let ageData = tableData['Yaş'][i];
-        let cityData = tableData['Semt'][i];
-        let salaryData = tableData['Maaş'][i];
-        
-        let tr = document.createElement('tr');
-        tr.innerHTML = `<td> ${employeeData} </td>`;
-        tr.innerHTML += `<td> ${departmentData} </td>`;
-        tr.innerHTML += `<td> ${ageData} </td>`;
-        tr.innerHTML += `<td> ${cityData} </td>`;
-        tr.innerHTML += `<td> ${salaryData} </td>`;
-        
-        tableBody.append(tr);            
-        }
+        createTable(tableData, '#table-body')
 
         appendAlert('Tablo başarıyla yüklendi!', 'success'); //notify the user of successful feedback
         
@@ -68,4 +50,23 @@ function appendAlert(message, type){
     setTimeout(() => {
         wrapper.remove();
     }, 5000);
+}
+
+function createTable(data, selector) {
+    let employeeDeatilsOfAcc = data;        
+    let rowKeys = Object.keys(employeeDeatilsOfAcc['Çalışan']); 
+    let allKeys = Object.keys(employeeDeatilsOfAcc);
+
+    // filtrelenen satırların uzunluğu kadar 'tr' oluşturan, içerideki döngü ile bu oluşturulan tr'nin içerisine satırların verilerini ekleyip, içerideki döngünün çıkışında bu oluşturulan tr'yi dropdown içerisine ekleyen döngü
+    for(let i = 0; i < rowKeys.length; i++) {
+        var tr = document.createElement('tr');
+        
+        for (let j = 0; j < allKeys.length; j++) {
+            let firsData = employeeDeatilsOfAcc[allKeys[j]];
+            
+            tr.innerHTML += `<td> ${firsData[rowKeys[i]]} </td>`;
+        }
+        
+        $(selector).append(tr);
+    }
 }
