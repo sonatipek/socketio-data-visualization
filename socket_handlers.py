@@ -177,6 +177,35 @@ async def tableLoadPopularCity(sid, *args, **kwargs):
     await sio.emit('popularCityData', popularCity)
 
 
+@app.sio.on('maasaGoreArtan')
+async def maasaGoreArtan(sid, *args, **kwargs):
+    maasaGoreArtanVeriler = dataSeries.sort_values('Maaş').apply(list)
+    
+
+    await sio.emit('maasaGoreArtanData', maasaGoreArtanVeriler.to_json())
+
+
+@app.sio.on('maasaGoreAzalan')
+async def maasaGoreAzalan(sid, *args, **kwargs):
+    maasaGoreAzalanVeriler = dataSeries.sort_values('Maaş',  ascending=False)
+    
+    await sio.emit('maasaGoreAzalanData', maasaGoreAzalanVeriler.to_json())
+
+
+@app.sio.on('yasaGoreArtan')
+async def yasaGoreArtan(sid, *args, **kwargs):
+    yasaGoreArtanVeriler = dataSeries.sort_values('Yaş')
+
+    await sio.emit('yasaGoreArtanData', yasaGoreArtanVeriler.to_json())
+
+
+@app.sio.on('yasaGoreAzalan')
+async def yasaGoreAzalan(sid, *args, **kwargs):
+    yasaGoreAzalanVeriler = dataSeries.sort_values('Yaş',  ascending=False)
+
+    await sio.emit('yasaGoreAzalanData', yasaGoreAzalanVeriler.to_json())
+
+
 
 if __name__ == '__main__':
     import logging

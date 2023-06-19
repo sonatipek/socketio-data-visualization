@@ -14,19 +14,68 @@ $(document).ready( _ =>{
     // Table Data Gelen Veri ve Verinin Kullanılması
     socket.on('tableDatas', (tableData) => {
         createTable(tableData, '#table-body')
-
+        
         appendAlert('Tablo başarıyla yüklendi!', 'success'); //notify the user of successful feedback
+        
+    })
+
+    socket.on('maasaGoreArtanData', (data) => {
+        createTable(JSON.parse(data), '#table-body', classNameEnter='maasaGoreArtan')
+        console.log(JSON.parse(data));
+        $('.default').addClass('d-none');
+
+        appendAlert('Tablo maaşa göre artacak şekilde düzenlendi!', 'success'); //notify the user of successful feedback
+        
+    })
+
+    socket.on('maasaGoreAzalanData', (data) => {
+        createTable(JSON.parse(data), '#table-body')
+        
+        appendAlert('Tablo maaşa göre azalacak şekilde düzenlendi!', 'success'); //notify the user of successful feedback
+        
+    })
+
+    socket.on('yasaGoreArtanData', (data) => {
+        createTable(JSON.parse(data), '#table-body')
+        
+        appendAlert('Tablo yaşa göre artacak şekilde düzenlendi!', 'success'); //notify the user of successful feedback
+        
+    })
+
+    socket.on('yasaGoreAzalanData', (data) => {
+        createTable(JSON.parse(data), '#table-body')
+        
+        appendAlert('Tablo yaşa göre artacak şekilde düzenlendi!', 'success'); //notify the user of successful feedback
         
     })
 
 
     // **Göndericiler**
+    socket.emit('tableLoad');
 
-    // Table Load Butonu Dinlendi, tableload dinleyicisine mesaj gönderildi
-    $('#table-load').on('click', () => {
-        socket.emit('tableLoad');
+    
+    $('#btn__maasa-gore-artan').on('click', () => {
+        socket.emit('maasaGoreArtan');
+        
+    });
+    
+    $('#btn__maasa-gore-azalan').on('click', () => {
+        socket.emit('maasaGoreAzalan');
+    });
+    
+    $('#btn__yasa-gore-artan').on('click', () => {
+        socket.emit('yasaGoreArtan');
+     
+    });
+    
+    $('#btn__yasa-gore-azalan').on('click', () => {
+        socket.emit('yasaGoreAzalan');
 
-        $('#table-load').attr('disabled', '');
+    });
+
+    $('#btn__filter-reset').on('click', () => {
+        console.log("Reset filter");
+
     });
 
 })
@@ -52,7 +101,7 @@ function appendAlert(message, type){
     }, 5000);
 }
 
-function createTable(data, selector) {
+function createTable(data, selector, classNameEnter = "default") {
     let employeeDeatilsOfAcc = data;        
     let rowKeys = Object.keys(employeeDeatilsOfAcc['Çalışan']); 
     let allKeys = Object.keys(employeeDeatilsOfAcc);
@@ -60,7 +109,8 @@ function createTable(data, selector) {
     // filtrelenen satırların uzunluğu kadar 'tr' oluşturan, içerideki döngü ile bu oluşturulan tr'nin içerisine satırların verilerini ekleyip, içerideki döngünün çıkışında bu oluşturulan tr'yi dropdown içerisine ekleyen döngü
     for(let i = 0; i < rowKeys.length; i++) {
         var tr = document.createElement('tr');
-        
+        tr.className=classNameEnter;
+
         for (let j = 0; j < allKeys.length; j++) {
             let firsData = employeeDeatilsOfAcc[allKeys[j]];
             

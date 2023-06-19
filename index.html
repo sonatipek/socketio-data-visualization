@@ -66,7 +66,18 @@
         </tbody>
       </table>
 
-      <button id="table-load" class="btn btn-outline-danger">Tabloyu Yükle</button>
+      <div class="btn-group">
+        <button id="table-load" type="button" class="btn btn-outline-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Tabloyu Sırala</button>
+
+        <ul class="dropdown-menu">
+          <li><button id="btn__maasa-gore-artan" class="dropdown-item" href="#">Maaşa Göre Artan Sıralama</button></li>
+          <li><button id="btn__maasa-gore-azalan" class="dropdown-item" href="#">Maaşa Göre Azalan Sıralama</button></li>
+          <li><button id="btn__yasa-gore-artan" class="dropdown-item" href="#">Yaşa Göre Artan Sıralama</button></li>
+          <li><button id="btn__yasa-gore-azalan" class="dropdown-item" href="#">Yaşa Göre Azalan Sıralama</button></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><button id="btn__filter-reset" class="dropdown-item">Sıralamayı Sıfırla</button></li>
+        </ul>
+      </div>
     </div>
 
     
