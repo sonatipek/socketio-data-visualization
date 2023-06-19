@@ -45,8 +45,8 @@ async def tableLoad(sid, *args, **kwargs):
 
 
 
-@app.sio.on('loadPageData')
-async def pandas_read(sid, *args, **kwargs):
+@app.sio.on('loadDepartmentPageData')
+async def loadDepartmentPageData(sid, *args, **kwargs):
     numberOfEmployees = dataSeries.groupby('Departman')['Çalışan'].count() #Departmana göre çalışan sayısı
     await sio.emit('numberofEmployees', numberOfEmployees.to_json())
 
@@ -77,15 +77,15 @@ async def itDetail(sid, *args, **kwargs):
     
 
 
-@app.sio.on('loadEChart')
-async def loadEChart(sid, *args, **kwargs):
+@app.sio.on('loadDepartmentChart')
+async def loadDepartmentChart(sid, *args, **kwargs):
     numberOfEmployees = dataSeries.groupby('Departman')['Çalışan'].count() #Departmana göre çalışan sayısı
     avgAgeByDepartment = dataSeries.groupby('Departman')['Yaş'].mean() # departmana göre yaş ortalaması
     avgSalaryByDepartment = dataSeries.groupby('Departman')['Maaş'].mean() # departmana göre yaş ortalaması
     totalSalaryExpandByDepertment = dataSeries.groupby('Departman')['Maaş'].sum() # Departmandaki toplam maaş harcaması
     allDatas = pd.Series(data=[numberOfEmployees, avgAgeByDepartment, avgSalaryByDepartment, totalSalaryExpandByDepertment], index=['Çalışan Sayısı', 'Yaş Ortalaması', 'Maaş Ortalaması', 'Toplam Maaş Harcaması'])
 
-    await sio.emit('eChartData', allDatas.to_json())
+    await sio.emit('echartDepartmentData', allDatas.to_json())
 
 
 @app.sio.on('loadPageForEmployeCount')
@@ -104,7 +104,7 @@ async def kadıkoyDetail(sid, *args, **kwargs):
 
 
 @app.sio.on('maltepeDetail')
-async def kadıkoyDetail(sid, *args, **kwargs):
+async def maltepeDetail(sid, *args, **kwargs):
     employeeDeatilsOfAcc = dataSeries.groupby('Semt').get_group('Maltepe')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Kadıköy semtine göre calisan, maas, yas ve semt bilgileri
     clickCounter = args[0]
         
@@ -113,7 +113,7 @@ async def kadıkoyDetail(sid, *args, **kwargs):
 
 
 @app.sio.on('tuzlaDetail')
-async def kadıkoyDetail(sid, *args, **kwargs):
+async def tuzlaDetail(sid, *args, **kwargs):
     employeeDeatilsOfAcc = dataSeries.groupby('Semt').get_group('Tuzla')[['Çalışan', 'Maaş', 'Yaş', 'Semt']] #Kadıköy semtine göre calisan, maas, yas ve semt bilgileri
     clickCounter = args[0]
     

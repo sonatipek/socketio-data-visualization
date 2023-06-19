@@ -37,8 +37,8 @@ $(document).ready( _ =>{
 
 
     // **Göndericiler**
-    // Sayfa yüklendiğinde 'loadPageData' mesajının gönderilmesi
-    socket.emit('loadPageData');
+    // Sayfa yüklendiğinde 'loadDepartmentPageData' mesajının gönderilmesi
+    socket.emit('loadDepartmentPageData');
     
     // Muhasebe detay dropdown butonuna tıklandığında 'accDeatil' mesajının gönderilmesi
     // Beraberinde giden click counter ile verilerin tekrar tekrar yüklenmesini engelliyoruz

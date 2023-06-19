@@ -12,7 +12,7 @@ $(document).ready(_ => {
     
     // **Dinleyiciler**
     // Socket.io üzerinden gelen departman bazında çalışanların sayısı verilerinin alınması ve bu numaraların DOM üzerinde yerleştirilmesi
-    socket.on('eChartData', (data) => {
+    socket.on('echartDepartmentData', (data) => {
         data = JSON.parse(data);
 
         // Chart Selectors
@@ -127,8 +127,8 @@ $(document).ready(_ => {
 
 
     // **Göndericiler**
-    // Sayfa yüklendiğinde 'loadEChart' mesajının gönderilmesi
-    socket.emit('loadEChart');
+    // Sayfa yüklendiğinde 'loadDepartmentChart ' mesajının gönderilmesi
+    socket.emit('loadDepartmentChart');
 
 
 })
