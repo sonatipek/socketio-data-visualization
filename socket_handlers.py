@@ -133,6 +133,50 @@ async def loadCitiesChart(sid, *args, **kwargs):
     await sio.emit('citiesChartData', allDatas.to_json())
 
 
+@app.sio.on('tableLoadOlderEmployee')
+async def tableLoadOlderEmployee(sid, *args, **kwargs):
+    olderEmployee = dataSeries[dataSeries['Yaş'] == dataSeries['Yaş'].max()]
+
+    await sio.emit('olderEmployeeData', olderEmployee.to_json())
+
+
+@app.sio.on('tableLoadYoungestEmployee')
+async def tableLoadYoungestEmployee(sid, *args, **kwargs):
+    youngestEmployee = dataSeries[dataSeries['Yaş'] == dataSeries['Yaş'].min()]
+    
+    await sio.emit('youngestEmployeeData', youngestEmployee.to_json())
+
+
+@app.sio.on('tableLoadHighestEmployee')
+async def tableLoadHighestEmployee(sid, *args, **kwargs):
+    highestEmployee = dataSeries[dataSeries['Maaş'] == dataSeries['Maaş'].max()]
+
+    await sio.emit('highestEmployeeData', highestEmployee.to_json())
+
+
+@app.sio.on('tableLoadLowestEmployee')
+async def tableLoadLowestEmployee(sid, *args, **kwargs):
+    lowestEmployee = dataSeries[dataSeries['Maaş'] == dataSeries['Maaş'].min()]
+
+    await sio.emit('lowestEmployeeData', lowestEmployee.to_json())
+
+
+
+@app.sio.on('tableLoadHighestDepart')
+async def tableLoadHighestDepart(sid, *args, **kwargs):
+    lowestEmployee = dataSeries.groupby('Departman')['Maaş'].mean().idxmax()
+
+    await sio.emit('highestDepartData', lowestEmployee)
+
+
+
+@app.sio.on('tableLoadPopularCity')
+async def tableLoadPopularCity(sid, *args, **kwargs):
+    popularCity = dataSeries['Semt'].value_counts().idxmax()
+
+    await sio.emit('popularCityData', popularCity)
+
+
 
 if __name__ == '__main__':
     import logging
