@@ -17,7 +17,6 @@ $(document).ready(_ => {
         
         // Chart Selectors
         let mainChart = echarts.init(document.getElementById('eChart-main'));
-        let secondChart = echarts.init(document.getElementById('eChart-second'));
         
         // Data Spesifications
         let employeeNames = data['Çalışan'];
@@ -59,41 +58,8 @@ $(document).ready(_ => {
             ]
         };
 
-        // // Second Chart Options
-        // let secondOption = {
-        //     title: {
-        //         text: 'Departman Bazında Maaş Verileri',
-        //         left: 'center'
-        //     },
-        //     tooltip: {},
-        //     legend: {
-        //         left: 'left',
-        //         orient: 'vertical',
-        //         data: ['Ortalama Maaş', 'Toplam Maaş Harcaması']
-        //     },
-        //     xAxis: {
-        //         data: Object.keys(numberOfEmployees)
-        //     },
-        //     yAxis: {  },
-        //     series: [
-        //         {
-        //         name: 'Ortalama Maaş',
-        //         type: 'bar',
-        //         data: Object.values(avgSalaryByDepartment),
-        //         color: 'blue'
-        //         },
-        //         {
-        //         name: 'Toplam Maaş Harcaması',
-        //         type: 'bar',
-        //         data: Object.values(totalSalaryExpandByDepertment),
-        //         color: 'purple'
-        //         }
-        //     ]
-        // };
-        
-        
+
         mainChart.setOption(mainOption);
-        // secondChart.setOption(secondOption);
     });
 
 
