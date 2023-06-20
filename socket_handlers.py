@@ -44,6 +44,14 @@ async def tableLoad(sid, *args, **kwargs):
     await sio.emit('tableDatas', data)
 
 
+# Index Echart
+@app.sio.on('loadIndexChart')
+async def tableLoad(sid, *args, **kwargs):
+    agesAndSalary = dataSeries[['Çalışan','Yaş', 'Maaş']]
+   
+    await sio.emit('echartIndexData', agesAndSalary.to_json())
+
+
 
 @app.sio.on('loadDepartmentPageData')
 async def loadDepartmentPageData(sid, *args, **kwargs):
