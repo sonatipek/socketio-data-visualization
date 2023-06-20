@@ -19,13 +19,15 @@ $(document).ready(_ => {
         let mainChart = echarts.init(document.getElementById('eChart-main'));
         let secondChart = echarts.init(document.getElementById('eChart-second'));
         let thirdChart = echarts.init(document.getElementById('eChart-third'));
+        let fourthChart = echarts.init(document.getElementById('eChart-fourth'));
         
         // Data Spesifications
         let numberOfEmployees = data['Çalışan Sayısı'];
         let avgAgeByDepartment = data['Yaş Ortalaması'];
         let avgSalaryByDepartment = data['Maaş Ortalaması'];
         let totalSalaryExpandByDepertment = data['Toplam Maaş Harcaması'];
-
+        let employeesByDepartment = data['Departman Bazında Çalışanlar'];
+       
         
         // Main Chart Option
         let mainOption = {
@@ -118,10 +120,40 @@ $(document).ready(_ => {
             }
         };
         
+        // Fourth Chart Options
+        let fourthOption = {
+            title: {
+                text: 'Çalışanlarınızın Departman Dağılımı',
+                subtext: 'Departmanlar bazında çalışanlarınızın yüzdesi.',
+                left: 'center'
+            },
+            tooltip: {trigger: 'item', formatter: '{b}: {d}%'},
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [{
+                name: "Maaş",
+                type: 'pie',
+                // radius: '50%',
+                data: Object.keys(employeesByDepartment).map(key => {
+                    return {name: key, value: employeesByDepartment[key]}
+                })
+            }],
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0,0,0, 0.5)'
+                }
+            }
+        };
+        
         
         mainChart.setOption(mainOption);
         secondChart.setOption(secondOption);
         thirdChart.setOption(thirdOption);
+        fourthChart.setOption(fourthOption);
     });
 
 
