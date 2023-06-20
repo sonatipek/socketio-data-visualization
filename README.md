@@ -1,5 +1,5 @@
 <p align="center" width="100%">
-    <img width="50%" src="https://raw.githubusercontent.com/sonatipek/dogadan-tea-advices/main/public/sonatipek-brand-logo.svg"> 
+    <img width="25%" src="https://raw.githubusercontent.com/sonatipek/dogadan-tea-advices/main/public/sonatipek-brand-logo.svg"> 
 </p>
 
 
