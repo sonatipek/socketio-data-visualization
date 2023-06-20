@@ -1,6 +1,5 @@
 $(document).ready( _ =>{
     console.log("İndex Sayfası Hazır!");
-    let tableBody = document.querySelector('#table-body')
 
     // Socket.io Tanımlaması
     const socket = io("http://localhost:8081", {
@@ -19,8 +18,18 @@ $(document).ready( _ =>{
         
     })
 
+    // Avg Data Gelen Veri ve Verinin Kullanılması
+    socket.on('avgDatas', (data) => {
+        let avgSalary = data['Ortalama Maaş'];
+        let avgAge = data['Ortalama Yaş'];
+
+        $('#avg-age-text').html(avgAge);
+        $('#avg-salary-text').html(avgSalary);
+    })
+
 
     // **Göndericiler**
+    socket.emit('avgDatasLoad');
 
     // Table Load Butonu Dinlendi, tableload dinleyicisine mesaj gönderildi
     $('#table-load').on('click', () => {

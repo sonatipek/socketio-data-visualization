@@ -51,6 +51,14 @@ async def tableLoad(sid, *args, **kwargs):
    
     await sio.emit('echartIndexData', agesAndSalary.to_json())
 
+# Index Avg Datas
+@app.sio.on('avgDatasLoad')
+async def tableLoad(sid, *args, **kwargs):
+    avgSalary = dataSeries['Maaş'].mean()
+    avgAge = dataSeries['Yaş'].mean()
+    allData = {"Ortalama Maaş": round(avgSalary, 2), "Ortalama Yaş": round(avgAge, 2)}
+    
+    await sio.emit('avgDatas', allData)
 
 
 @app.sio.on('loadDepartmentPageData')
