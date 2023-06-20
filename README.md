@@ -25,6 +25,7 @@ The identified data was made meaningful using Pandas and Numpy. Python and JS co
 - Python Socket.io
 - Pandas
 - Numpy
+
 _The Javascript technologies used are received via CDN, there is no need for a separate download._
 
 ## Run on Your Computer
