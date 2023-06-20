@@ -1,4 +1,7 @@
-![Logo](https://raw.githubusercontent.com/sonatipek/dogadan-tea-advices/main/public/sonatipek-brand-logo.svg)
+<p align="center" width="100%">
+    <img width="50%" src="[https://i.stack.imgur.com/RJj4x.png](https://raw.githubusercontent.com/sonatipek/dogadan-tea-advices/main/public/sonatipek-brand-logo.svg)"> 
+</p>
+
 
 # 📊Data Visualization with Apache ECharts
 
