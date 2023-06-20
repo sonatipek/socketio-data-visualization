@@ -193,6 +193,13 @@ async def tableLoadPopularCity(sid, *args, **kwargs):
     await sio.emit('popularCityData', popularCity)
 
 
+@app.sio.on('loadSalaryChart')
+async def tableLoadPopularCity(sid, *args, **kwargs):
+    salaryDatas = dataSeries[['Maaş', 'Çalışan']]
+
+    await sio.emit('echartSalaryData', salaryDatas.to_json())
+
+
 
 if __name__ == '__main__':
     import logging
