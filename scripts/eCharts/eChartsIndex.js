@@ -39,23 +39,33 @@ $(document).ready(_ => {
 
             },
             xAxis: {
+                type: 'category',
                 data: Object.values(employeeNames)
             },
             yAxis: {  },
             series: [
                 {
-                name: 'Yaş',
-                type: 'bar',
-                data: Object.values(employeeAges),
-                color: 'red'
+                    name: 'Yaş',
+                    type: 'bar',
+                    data: Object.values(employeeAges),
+                    color: 'red',
+                    showBackground: true,
                 },
                 {
-                name: 'Maaş',
-                type: 'bar',
-                data: Object.values(employeeSalary),
-                color: 'orange'
+                    name: 'Maaş',
+                    type: 'bar',
+                    data: Object.values(employeeSalary),
+                    color: 'orange',
+                    showBackground: true,
                 }
-            ]
+            ],
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0,0,0, 0.5)'
+                }
+            }
         };
 
 
