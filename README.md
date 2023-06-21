@@ -20,7 +20,7 @@ The identified data was made meaningful using Pandas and Numpy. Python and JS co
 
 ## 📷Screen Shots
 
-![Uygulama Ekran Görüntüsü](https://www.hizliresim.com/chvx7t3)
+![Uygulama Ekran Görüntüsü](https://i.hizliresim.com/chvx7t3.PNG)
 
 ## Core Requirements
 - Python
