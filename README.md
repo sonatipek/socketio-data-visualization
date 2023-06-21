@@ -21,6 +21,11 @@ The identified data was made meaningful using Pandas and Numpy. Python and JS co
 ## 📷Screen Shots
 
 ![Uygulama Ekran Görüntüsü](https://i.hizliresim.com/chvx7t3.PNG)
+![Uygulama Ekran Görüntüsü](https://i.hizliresim.com/daqef28.PNG)
+![Uygulama Ekran Görüntüsü](https://i.hizliresim.com/a4b44jz.PNG)
+![Uygulama Ekran Görüntüsü](https://i.hizliresim.com/l0qsarb.PNG)
+![Uygulama Ekran Görüntüsü](https://i.hizliresim.com/aq078jh.PNG)
+
 
 ## Core Requirements
 - Python
