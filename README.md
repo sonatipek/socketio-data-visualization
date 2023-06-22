@@ -72,8 +72,8 @@ If you have any feedback, please contact us at **sonatsayginipek@gmail.com** or 
 
 ## Contribution
 Contributions are always welcome!
+Getting started see `CONTRIBUTING.md`.
 
-To get started, see the *'Run on Your Computer'* section.
 
 
   
