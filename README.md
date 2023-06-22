@@ -27,15 +27,6 @@ The identified data was made meaningful using Pandas and Numpy. Python and JS co
 ![Uygulama Ekran Görüntüsü](https://i.hizliresim.com/aq078jh.PNG)
 
 
-## Core Requirements
-- Python
-- FastAPI
-- Python Socket.io
-- Pandas
-- Numpy
-
-_The Javascript technologies used are received via CDN, there is no need for a separate download._
-
 ## Run on Your Computer
 **Note1:You must have Python installed on your computer.
 
