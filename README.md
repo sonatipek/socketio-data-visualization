@@ -74,7 +74,7 @@ If you have any feedback, please contact at **sonatsayginipek@gmail.com** or **s
 Contributions are always welcome!
 Getting started see `CONTRIBUTING.md`.
 
-
+<br><br>
 
 # 📊 Apache ECharts ile Veri Görselleştirme - TR
 
