@@ -19,11 +19,11 @@ sio = SocketManager(app=app)
 
 
 data = {
-    'Çalışan': ['Ahmet Yılmaz','Can Ertürk','Hasan Korkmaz','Cenk Saymaz','Ali Turan','Rıza Ertürk','Mustafa Can'],
-    'Departman': ['İnsan Kaynakları','Bilgi İşlem','Muhasebe','İnsan Kaynakları','Bilgi İşlem','Muhasebe','Bilgi İşlem'],
-    'Yaş': [30,25,45,50,23,34,42],
-    'Semt': ['Kadıköy','Tuzla','Maltepe','Tuzla','Kadıköy','Tuzla','Maltepe'],
-    'Maaş': [5000,3000,4000,3500,2750,6500,4500]
+    'Çalışan': ['Ahmet Yılmaz','Can Ertürk','Hasan Korkmaz','Cenk Saymaz','Ali Turan','Rıza Ertürk','Mustafa Can', "Gökhan Türkaslan", 'Aylin Yıldırım', 'Esra Korkmaz', 'Zeynep Aydın', 'Ali Kaya', 'Fatma Demir', 'Mehmet Aksoy', 'Ayşe Yılmaz'],
+    'Departman': ['İnsan Kaynakları','Bilgi İşlem','Muhasebe','İnsan Kaynakları','Bilgi İşlem','Muhasebe','Bilgi İşlem', "Bilgi İşlem", "İnsan Kaynakları", 'Reklamcılık', 'Halkla İlişkiler', 'İnsan Kaynakları', 'Bilgi İşlem', 'İnsan Kaynakları', 'Grafik Tasarım'],
+    'Yaş': [30,25,45,50,23,34,42, 20, 46, 25, 45, 50, 63, 19, 56],
+    'Semt': ['Kadıköy','Tuzla','Maltepe','Tuzla','Kadıköy','Tuzla','Maltepe', "Maltepe", "Kadıköy", 'Sultanbeyli' , 'Sancaktepe', 'Çekmeköy', 'Kartal', 'Kadıköy', 'Pendik'],
+    'Maaş': [5000,3000,4000,3500,2750,6500,4500, 4000, 3000, 2800, 4600, 8700, 3700, 2750, 4000]
 }
 
 dataSeries = pd.DataFrame(data)  # Pandas İşlemleri yapabilmek için veriyi Pandas Serisi'ne çevirdim.
