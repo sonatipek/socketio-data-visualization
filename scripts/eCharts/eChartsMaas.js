@@ -142,4 +142,14 @@ $(document).ready(_ => {
     socket.emit('loadSalaryChart');
 
 
+    // Bu kısım maaş sayfasındaki tek chart olmayan bilgidir. 
+    socket.emit('totalSalaryOfEmployee');
+
+    socket.on('totalSalaryOfEmployeeData', (data) => {
+    let totalSalaryOfEmployee = data;
+
+    $('#total-salary-text').html(totalSalaryOfEmployee);
+    });
+
+
 });

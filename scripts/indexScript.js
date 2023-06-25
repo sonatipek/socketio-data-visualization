@@ -27,9 +27,16 @@ $(document).ready( _ =>{
         $('#avg-salary-text').html(avgSalary);
     })
 
+    socket.on('totalSalaryOfEmployeeData', (data) => {
+        let totalSalaryOfEmployee = data;
+
+        $('#total-salary-text').html(totalSalaryOfEmployee);
+    })
+
 
     // **Göndericiler**
     socket.emit('avgDatasLoad');
+    socket.emit('totalSalaryOfEmployee');
 
     // Table Load Butonu Dinlendi, tableload dinleyicisine mesaj gönderildi
     $('#table-load').on('click', () => {
@@ -37,6 +44,7 @@ $(document).ready( _ =>{
 
         $('#table-load').attr('disabled', '');
     });
+
 
 })
 

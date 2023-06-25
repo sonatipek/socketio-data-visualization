@@ -210,6 +210,12 @@ async def calculate1(sid, *args, **kwargs):
 
     await sio.emit('calculateData1', [round(salaryThatCanBeGiven, 2)])
 
+@app.sio.on('totalSalaryOfEmployee')
+async def totalSalaryOfEmployee(sid, *args, **kwargs):
+    allSalaries = dataSeries['Maaş'].values
+    totalSalary = np.sum(allSalaries)
+
+    await sio.emit('totalSalaryOfEmployeeData', int(totalSalary))
 
 if __name__ == '__main__':
     import logging
