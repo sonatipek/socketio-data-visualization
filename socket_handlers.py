@@ -203,16 +203,12 @@ async def tableLoadPopularCity(sid, *args, **kwargs):
 
 @app.sio.on('calculate1')
 async def calculate1(sid, *args, **kwargs):
-    allSalaries = dataSeries['Maaş'].values
-    totalSalary = np.sum(allSalaries)
-
     personData = args[0][0]
     budgetData = args[0][1]
 
-    remainingBudget = int(budgetData) - int(totalSalary)
-    salaryThatCanBeGiven = int(remainingBudget) / int(personData)
+    salaryThatCanBeGiven = int(budgetData) / int(personData)
 
-    await sio.emit('calculateData1', [round(salaryThatCanBeGiven, 2), remainingBudget])
+    await sio.emit('calculateData1', [round(salaryThatCanBeGiven, 2)])
 
 
 if __name__ == '__main__':

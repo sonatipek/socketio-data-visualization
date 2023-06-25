@@ -14,16 +14,14 @@ $(document).ready(_ => {
     let clickCount = 0;
     socket.on('calculateData1', (data) => {
         clickCount++;
-        salaryThatCanBeGiven = data[0]
-        remainingBudget = data[1]
+        salaryThatCanBeGiven = data
+
         if(clickCount <= 1){
-            $('#calculate_1-text').append(`<li class="calculate-result1 list-group-item list-group-item-secondary"><b>Her Çalışana Verebileceğiniz Maksimum Maaş:</b> ${salaryThatCanBeGiven}</li>`)
-            $('#calculate_1-text').append(`<li class="calculate-result1 list-group-item list-group-item-secondary"><b>Girilen Bütçeye Göre Şu Anki Maaşlar Çıkınca Kalan Bütçe:</b> ${remainingBudget}</li>`)
+            $('#calculate_1-text').append(`<li class="calculate-result1 list-group-item list-group-item-secondary"><b>Her Çalışana Verebileceğiniz Maksimum Maaş:</b> ${salaryThatCanBeGiven} ₺</li>`)
             
         }else{
             $('.calculate-result1').remove()
-            $('#calculate_1-text').append(`<li class="calculate-result1 list-group-item list-group-item-secondary"><b>Her Çalışana Verebileceğiniz Maksimum Maaş:</b> ${salaryThatCanBeGiven}</li>`)
-            $('#calculate_1-text').append(`<li class="calculate-result1 list-group-item list-group-item-secondary"><b>Girilen Bütçeye Göre Şu Anki Maaşlar Çıkınca Kalan Bütçe:</b> ${remainingBudget}</li>`)
+            $('#calculate_1-text').append(`<li class="calculate-result1 list-group-item list-group-item-secondary"><b>Her Çalışana Verebileceğiniz Maksimum Maaş:</b> ${salaryThatCanBeGiven} ₺</li>`)
 
         }
     });
