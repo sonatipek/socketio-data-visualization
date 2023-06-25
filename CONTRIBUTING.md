@@ -29,7 +29,7 @@ If you have any questions, suggestions or feedback, please feel free to contact 
 
 Thank you again for reading this guide. I look forward to your contributions!
 
-
+<br><br>
 
 # Projeye Katkıda Bulunma Rehberi - TR
 Projeye katkıda bulunmak istediğiniz için teşekkür ederim! Aşağıda projeye nasıl katkıda bulunabileceğiniz ve katkıda bulunurken dikkate almanız gereken bazı kurallar yer almaktadır.
