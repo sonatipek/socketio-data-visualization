@@ -4,6 +4,7 @@
 
 
 # 📊 Data Visualization with Apache ECharts - EN
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 The identified data was made meaningful using Pandas and Numpy. Python and JS codes were communicated via Socket.io and this meaningful data was visualized with Apache ECharts.
 
@@ -77,6 +78,7 @@ Getting started see `CONTRIBUTING.md`.
 <br><br>
 
 # 📊 Apache ECharts ile Veri Görselleştirme - TR
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Belirlenen veriler Pandas ve Numpy kullanılarak anlamlı hale getirildi. Python ve JS kodları Socket.io üzerinden haberleştirildi ve bu anlamlı veriler Apache ECharts ile görselleştirildi.
 
