@@ -210,6 +210,17 @@ async def calculate1(sid, *args, **kwargs):
 
     await sio.emit('calculateData1', [round(salaryThatCanBeGiven, 2)])
 
+
+@app.sio.on('calculate2')
+async def calculate1(sid, *args, **kwargs):
+    budgetData = args[0][0]
+    minSalary = args[0][1]
+
+    numberOfEmployee = int(budgetData) / int(minSalary)
+
+    await sio.emit('calculateData2', int(numberOfEmployee))
+
+
 @app.sio.on('totalSalaryOfEmployee')
 async def totalSalaryOfEmployee(sid, *args, **kwargs):
     allSalaries = dataSeries['Maaş'].values

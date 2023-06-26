@@ -49,28 +49,56 @@
     <main class="container mt-4">
       <h1 class="text-center display-3">Hesap Araçlarımız</h1>
 
-   
-          <h3 class="fs-3 fw-medium text-center mt-5">Verilebilecek Optimum Maaşı Hesapla</h3>
-          <p class="text-secondary text-center mb-2">İstihdam sağlanack kişi sayısı ve bütçeye göre kişi başına ne kadar maaş bütçesi ayırabileceğinizi hesaplayan araç.</p>
+        <div class="row">
+          <div class="col-6 container">
+  
+            <h3 class="fs-3 fw-medium text-center mt-5">Verilebilecek Optimum Maaşı Hesapla</h3>
+            <p class="text-secondary text-center mb-2">İstihdam sağlanacak kişi sayısı ve bütçeye göre kişi başına ne kadar maaş ayırabileceğinizi hesaplayan araç.</p>
+  
+            <form class="col-6 container">
+              <div class="mb-3">
+                <label for="person_1" class="form-label">İstihdam Sağlanacak Kişi Sayısı</label>
+                <input type="number" class="form-control" id="person_1" aria-describedby="emailHelp">
+              </div>
+      
+              <div class="mb-3">
+                <label for="budget_1" class="form-label">Ayrılacak Bütçe</label>
+                <input type="number" class="form-control" id="budget_1">
+              </div>
+      
+              <button id="btn__calculate1" type="submit" class="btn btn-success w-100">Hesapla</button>
+            </form>
+  
+            <h1 class="text-secondary  text-center mt-4">Hesaplama Sonuçlarınız</h1>
+            <ul id="calculate_1-text" class="list-group text-center">
+              
+            </ul>
+          </div>
 
-          <form class="col-6 container">
-            <div class="mb-3">
-              <label for="person_1" class="form-label">İstihdam Sağlanacak Kişi Sayısı</label>
-              <input type="number" class="form-control" id="person_1" aria-describedby="emailHelp">
-            </div>
-    
-            <div class="mb-3">
-              <label for="budget_1" class="form-label">Ayrılacak Bütçe</label>
-              <input type="number" class="form-control" id="budget_1">
-            </div>
-    
-            <button id="btn__calculate1" type="submit" class="btn btn-success w-100">Hesapla</button>
-          </form>
+          <div class="col-6 container">
+            <h3 class="fs-3 fw-medium text-center mt-5">Alınabilecek Çalışan Sayısını Hesapla</h3>
+            <p class="text-secondary text-center mb-2">Bütçeye göre girilen asgari ücret baz alınarak kaç kişiye daha istihdam sağlayabileceğinizi hesaplayan araç.</p>
 
-          <h1 class="text-secondary  text-center mt-4">Hesaplama Sonuçlarınız</h1>
-          <ul id="calculate_1-text" class="list-group text-center">
-            
-          </ul>
+            <form class="col-6 container">     
+              <div class="mb-3">
+                <label for="budget_2" class="form-label">Ayrılacak Bütçe</label>
+                <input type="number" class="form-control" id="budget_2">
+              </div>
+
+              <div class="mb-3">
+                <label for="minSalary_2" class="form-label">Asgari Ücret</label>
+                <input type="number" class="form-control" id="minSalary_2">
+              </div>
+      
+              <button id="btn__calculate2" type="submit" class="btn btn-success w-100">Hesapla</button>
+            </form>
+  
+            <h1 class="text-secondary  text-center mt-4">Hesaplama Sonuçlarınız</h1>
+            <ul id="calculate_2-text" class="list-group text-center">
+              
+            </ul>
+          </div>
+        </div>
 
 
     </main>
